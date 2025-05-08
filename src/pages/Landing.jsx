@@ -1,84 +1,197 @@
-import { motion } from "framer-motion";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Footer from "../components/layout/Footer";
 
 const LandingContainer = styled.div`
   min-height: 100vh;
   overflow-x: hidden;
-  scroll-behavior: smooth;
 `;
 
-const Section = styled.section`
+const HeroSection = styled.section`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
-`;
+  padding: 2rem;
+  background: var(--primary-color);
+  position: relative;
+  overflow: hidden;
 
-const HeroSection = styled(Section)`
-  background: linear-gradient(135deg, #e0b10d 0%, #4a5568 100%);
-  color: white;
-`;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      circle at center,
+      rgba(138, 180, 248, 0.1) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
 
-const AboutSection = styled(Section)`
-  background: white;
-  color: var(--primary-color);
-`;
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 
-const DetailsSection = styled(Section)`
-  background: #f7fafc;
-  color: var(--primary-color);
-`;
-
-const UpdateSection = styled(Section)`
-  background: #2d3748;
-  color: white;
-`;
-
-const NewsletterSection = styled(Section)`
-  background: white;
-  color: var(--primary-color);
-`;
-
-const Title = styled(motion.h1)`
-  font-size: 4rem;
-  margin-bottom: 2rem;
-  text-align: center;
-`;
-
-const Description = styled(motion.p)`
-  font-size: 1.5rem;
-  max-width: 600px;
-  text-align: center;
-  margin-bottom: 3rem;
-`;
-
-const CTAButton = styled(motion.button)`
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  background-color: ${(props) => (props.inverse ? "transparent" : "white")};
-  color: ${(props) => (props.inverse ? "white" : "var(--primary-color)")};
-  border: ${(props) => (props.inverse ? "2px solid white" : "none")};
-  border-radius: var(--border-radius);
-  transition: var(--transition);
-  cursor: pointer;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  @media (max-width: 480px) {
+    padding: 1rem;
   }
 `;
 
-const Card = styled(motion.div)`
-  background: white;
+const Title = styled.h1`
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #fff 0%, #8ab4f8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+
+  @media (max-width: 480px) {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+`;
+
+const Description = styled.p`
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--text-secondary);
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+`;
+
+const CTAButton = styled.button`
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  font-weight: 500;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(138, 180, 248, 0.2);
+  }
+
+  @media (max-width: 480px) {
+    width: 90%;
+    max-width: 300px;
+  }
+`;
+
+const FeaturesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: var(--container-width);
+  margin: 4rem auto;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+`;
+
+const FeatureCard = styled.div`
+  background: var(--secondary-color);
   padding: 2rem;
   border-radius: var(--border-radius);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 1rem;
-  max-width: 300px;
+  transition: var(--transition);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  h3 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--text-secondary);
+  }
+`;
+
+const AboutSection = styled.section`
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: var(--secondary-color);
+  position: relative;
+
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+  }
+`;
+
+const UpdateSection = styled.section`
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: var(--primary-color);
+  position: relative;
+
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+  }
+`;
+
+const NewsletterSection = styled.section`
+  padding: 4rem 2rem;
+  background: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #fff 0%, #8ab4f8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const NewsletterForm = styled.form`
@@ -87,20 +200,78 @@ const NewsletterForm = styled.form`
   max-width: 500px;
   width: 100%;
   margin-top: 2rem;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
 `;
 
 const Input = styled.input`
   flex: 1;
   padding: 1rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--accent-color);
   border-radius: var(--border-radius);
+  background: var(--primary-color);
+  color: var(--text-color);
   font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: #fff;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.8rem;
+  }
+`;
+
+const UpdateGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: var(--container-width);
+  margin: 3rem auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 0 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+`;
+
+const UpdateCard = styled.div`
+  background: var(--secondary-color);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--accent-color);
+  transition: var(--transition);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(138, 180, 248, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem;
+  }
 `;
 
 const Landing = () => {
   const navigate = useNavigate();
 
-  const handleSubscribe = (e) => {
+  const handleNewsletterSubmit = (e) => {
     e.preventDefault();
     // Handle newsletter subscription
   };
@@ -108,137 +279,113 @@ const Landing = () => {
   return (
     <LandingContainer>
       <HeroSection>
-        <Title
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Welcome to AI Chat Platform
-        </Title>
-        <Description
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Experience the next generation of AI conversation with our intuitive
-          and powerful chat interface.
+        <Title>Welcome to Teacher Assist AI</Title>
+        <Description>
+          Experience the next generation of educational assistance powered by
+          advanced artificial intelligence. Enhance your teaching and learning
+          journey.
         </Description>
-        <CTAButton
-          onClick={() => navigate("/chat")}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Start Chatting
-        </CTAButton>
+        <CTAButton onClick={() => navigate("/chat")}>Start Learning</CTAButton>
+
+        <FeaturesGrid>
+          <FeatureCard>
+            <h3>Intelligent Tutoring</h3>
+            <p>
+              Personalized learning experience adapted to your unique needs and
+              pace.
+            </p>
+          </FeatureCard>
+          <FeatureCard>
+            <h3>24/7 Availability</h3>
+            <p>
+              Access educational support anytime, anywhere with our AI
+              assistant.
+            </p>
+          </FeatureCard>
+          <FeatureCard>
+            <h3>Interactive Learning</h3>
+            <p>
+              Engage with dynamic content and real-time feedback for better
+              understanding.
+            </p>
+          </FeatureCard>
+        </FeaturesGrid>
       </HeroSection>
 
       <AboutSection>
-        <Title
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          About Us
-        </Title>
-        <Description
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          We are dedicated to revolutionizing education through AI-powered
-          assistance, making learning more accessible and engaging.
+        <SectionTitle>About Teacher Assist AI</SectionTitle>
+        <Description>
+          We're revolutionizing education through artificial intelligence. Our
+          platform combines cutting-edge AI technology with pedagogical
+          expertise to create an unparalleled learning experience.
         </Description>
+        <FeaturesGrid>
+          <FeatureCard>
+            <h3>Our Mission</h3>
+            <p>
+              To make quality education accessible to everyone through
+              AI-powered assistance.
+            </p>
+          </FeatureCard>
+          <FeatureCard>
+            <h3>Our Vision</h3>
+            <p>
+              Creating a future where personalized learning is available at
+              everyone's fingertips.
+            </p>
+          </FeatureCard>
+          <FeatureCard>
+            <h3>Our Values</h3>
+            <p>
+              Innovation, accessibility, and excellence in educational
+              technology.
+            </p>
+          </FeatureCard>
+        </FeaturesGrid>
       </AboutSection>
 
-      <DetailsSection>
-        <Title
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          Why Choose Us
-        </Title>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: "2rem",
-          }}
-        >
-          <Card
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h3>Intelligent Assistance</h3>
-            <p>Advanced AI-powered support for enhanced learning experience</p>
-          </Card>
-          <Card
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h3>24/7 Availability</h3>
-            <p>Access learning resources and support anytime, anywhere</p>
-          </Card>
-          <Card
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <h3>Personalized Learning</h3>
-            <p>Tailored content and feedback for individual needs</p>
-          </Card>
-        </div>
-      </DetailsSection>
-
       <UpdateSection>
-        <Title
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          Coming Soon
-        </Title>
-        <Description
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Stay tuned for exciting new features and improvements. We're
-          constantly working to enhance your learning experience.
+        <SectionTitle>Coming Soon</SectionTitle>
+        <Description>
+          We're constantly working to improve your experience. Here's what's
+          coming next.
         </Description>
-        <CTAButton
-          inverse
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          Learn More
-        </CTAButton>
+        <UpdateGrid>
+          <UpdateCard>
+            <h3>Advanced Analytics</h3>
+            <p>
+              Detailed insights into learning patterns and progress tracking.
+            </p>
+          </UpdateCard>
+          <UpdateCard>
+            <h3>Mobile App</h3>
+            <p>Learn on the go with our upcoming mobile application.</p>
+          </UpdateCard>
+          <UpdateCard>
+            <h3>Integration API</h3>
+            <p>
+              Connect Teacher Assist AI with your existing educational tools.
+            </p>
+          </UpdateCard>
+          <UpdateCard>
+            <h3>Collaborative Learning</h3>
+            <p>New features for group learning and peer interaction.</p>
+          </UpdateCard>
+        </UpdateGrid>
       </UpdateSection>
 
       <NewsletterSection>
-        <Title
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          Stay Updated
-        </Title>
-        <Description
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Subscribe to our newsletter for the latest updates and features.
+        <SectionTitle>Stay Updated</SectionTitle>
+        <Description>
+          Subscribe to our newsletter to receive the latest updates, features,
+          and educational content.
         </Description>
-        <NewsletterForm onSubmit={handleSubscribe}>
-          <Input type="email" placeholder="Enter your email" required />
+        <NewsletterForm onSubmit={handleNewsletterSubmit}>
+          <Input type="email" placeholder="Enter your email address" required />
           <CTAButton type="submit">Subscribe</CTAButton>
         </NewsletterForm>
       </NewsletterSection>
+      <Footer />
     </LandingContainer>
   );
 };

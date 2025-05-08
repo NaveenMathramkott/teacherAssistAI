@@ -10,6 +10,7 @@ import { ChatProvider } from "./context/ChatContext";
 import Admin from "./pages/Admin";
 import Chat from "./pages/Chat";
 import Landing from "./pages/Landing";
+import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import GlobalStyles from "./styles/GlobalStyles";
 
@@ -48,8 +49,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
-          {/* <Footer /> */}
         </ChatProvider>
       </AuthProvider>
     </Router>

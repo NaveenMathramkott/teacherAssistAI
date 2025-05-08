@@ -66,7 +66,7 @@ const MenuTitle = styled.span`
   }
 `;
 
-const Sidebar = () => {
+const AdminSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -108,4 +108,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;

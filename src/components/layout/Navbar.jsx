@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useAuth } from "../../context/AuthContext";
 
 const Nav = styled.nav`
-  background-color: white;
+  background-color: var(--background-color);
   height: 64px;
   display: flex;
   align-items: center;
@@ -31,7 +31,7 @@ const NavLink = styled(motion(Link))`
   color: var(--text-color);
 
   &:hover {
-    background-color: var(--background-color);
+    background-color: var(--text-secondary);
   }
 `;
 

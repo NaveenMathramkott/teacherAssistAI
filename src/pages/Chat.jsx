@@ -11,8 +11,8 @@ const ChatContainer = styled.div`
 
 const ChatContent = styled.div`
   flex: 1;
-  padding: 2rem;
-  max-width: 1200px;
+  padding: 1rem;
+  max-width: 1000px;
   margin: 0 auto;
   width: 100%;
 `;
