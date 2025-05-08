@@ -1,42 +1,67 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import React, { forwardRef, useState } from "react";
+import { FaPaperPlane } from "react-icons/fa";
+import styled from "styled-components";
 
 const InputContainer = styled.div`
-  padding: 1rem;
-  background-color: white;
-  border-radius: var(--border-radius);
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary-color);
+  width: 100%;
 `;
 
 const Form = styled.form`
   display: flex;
   gap: 1rem;
+  align-items: center;
 `;
 
 const Input = styled.input`
   flex: 1;
   padding: 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  border: 1px solid rgba(138, 180, 248, 0.1);
+  border-radius: var(--border-radius-lg);
   font-size: 1rem;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent-color);
+  }
+
+  &::placeholder {
+    color: var(--text-secondary);
+  }
 `;
 
 const SendButton = styled(motion.button)`
-  padding: 0 1.5rem;
+  padding: 1rem;
   background-color: var(--accent-color);
-  color: white;
-  border-radius: var(--border-radius);
+  color: var(--primary-color);
+  border-radius: var(--border-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #7aa3e7;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
-const MessageInput = ({ onSendMessage, isTyping }) => {
-  const [message, setMessage] = useState('');
+const MessageInput = forwardRef(({ onSendMessage, isTyping }, ref) => {
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (message.trim()) {
       onSendMessage(message);
-      setMessage('');
+      setMessage("");
     }
   };
 
@@ -44,6 +69,7 @@ const MessageInput = ({ onSendMessage, isTyping }) => {
     <InputContainer>
       <Form onSubmit={handleSubmit}>
         <Input
+          ref={ref}
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -56,11 +82,11 @@ const MessageInput = ({ onSendMessage, isTyping }) => {
           type="submit"
           disabled={isTyping}
         >
-          Send
+          <FaPaperPlane />
         </SendButton>
       </Form>
     </InputContainer>
   );
-};
+});
 
 export default MessageInput;
